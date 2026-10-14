@@ -139,6 +139,7 @@ class SalesDataAnalyzer:
             fill_value=0
         )
     def visualize_data(self, plot):
+        global generate_plot
         if(self.data is None or self.data.empty):
             print("[Error: Load the dataset first]")
             return
@@ -165,6 +166,7 @@ class SalesDataAnalyzer:
             except ValueError:
                 print("[Error: Arguments you have passed may be wrong]")
             else:
+                generate_plot = plt.gcf()
                 plt.show()
                 print("Bar plot displayed successfully!")
         elif(plot == "2"):
@@ -190,6 +192,7 @@ class SalesDataAnalyzer:
             except ValueError:
                 print("[Error: Arguments you have passed may be wrong]")
             else:
+                generate_plot = plt.gcf()
                 plt.show()
                 print("Line plot displayed successfully!")
         elif(plot == "3"):
@@ -215,6 +218,7 @@ class SalesDataAnalyzer:
             except ValueError:
                 print("[Error: Arguments you have passed may be wrong]")
             else:
+                generate_plot = plt.gcf()
                 plt.show()
                 print("Line plot displayed successfully!")
         elif(plot == "4"):
@@ -235,6 +239,7 @@ class SalesDataAnalyzer:
             except ValueError:
                 print("[Error: Arguments you have passed may be wrong]")
             else:
+                generate_plot = plt.gcf()
                 plt.show()
                 print("Pie Chart displayed successfully!")
         elif(plot == "5"):
@@ -257,6 +262,7 @@ class SalesDataAnalyzer:
             except ValueError:
                 print("[Error: Arguments you have passed may be wrong]")
             else:
+                generate_plot = plt.gcf()
                 plt.show()
                 print("Histogram displayed successfully!")
         elif(plot == "6"):
@@ -291,6 +297,7 @@ class SalesDataAnalyzer:
             except ValueError:
                 print("[Error: Arguments you have passed may be wrong]")
             else:
+                generate_plot = plt.gcf()
                 plt.show()
                 print("Stack plot displayed successfully!")
 
@@ -298,6 +305,8 @@ sda = SalesDataAnalyzer()
 x_axis = None
 y_axis = None
 group_column = None
+generate_plot = None
+
 while True:
     print("\n========== Data Analysis & Visualization Program ==========")
     print("Please select an option:")
@@ -469,6 +478,12 @@ while True:
                         continue
         case "7":
             print("== Save Visualization ==")
+            name = input("Enter image name (e.g., sales.png): ")
+            if generate_plot is not None:
+                generate_plot.savefig(name, dpi=300, bbox_inches="tight")
+                print(f"Visualization saved as {name}")
+            else:
+                print("[Error: No visualization available to save]")
         case "8":
             print("\nExiting the program. Goodbye!")
             break
